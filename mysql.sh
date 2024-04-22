@@ -36,5 +36,14 @@ VALIDATE $? "Enabling mysqld service"
 systemctl start mysqld &>>$LOGFILE
 VALIDATE $? "Starting mysqld service"
 
-mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGFILE
-VALIDATE $? "Setting up root password"
+# mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGFILE
+# VALIDATE $? "Setting up root password"
+
+mysql -h db.surya-devops.online -uroot -pExpenseApp@1 -e 'show databases;' &>>$LOGFILE
+if [ $? -ne 0 ]
+then
+    mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGFILE
+    VALIDATE $? "MySQL Root password is setup"
+else
+    echo -e "MySQL root password is already setup... $Y SKIPPING $N"
+fi
