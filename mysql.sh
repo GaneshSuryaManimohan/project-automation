@@ -17,6 +17,7 @@ VALIDATE(){
     else
         echo -e "Installation of $2....$G SUCCESS $N"
     fi
+}
 
 if [ $USERID -ne 0 ]
 then
@@ -35,5 +36,5 @@ VALIDATE $? "Enabling mysqld service"
 systemctl start mysqld &>>$LOGFILE
 VALIDATE $? "Starting mysqld service"
 
-mysql_secure_installation --set-root-pass ExpenseApp@1
+mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGFILE
 VALIDATE $? "Setting up root password"
