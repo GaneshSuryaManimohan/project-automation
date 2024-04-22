@@ -8,6 +8,8 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+echo ("Please enter the root password")
+read -s mysql_root_password
 
 VALIDATE(){
     if [ $1 -ne 0 ]
@@ -39,10 +41,10 @@ VALIDATE $? "Starting mysqld service"
 # mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGFILE
 # VALIDATE $? "Setting up root password"
 
-mysql -h db.surya-devops.online -uroot -pExpenseApp@1 -e 'show databases;' &>>$LOGFILE
+mysql -h db.surya-devops.online -uroot -p${mysql_root_password} -e 'show databases;' &>>$LOGFILE
 if [ $? -ne 0 ]
 then
-    mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOGFILE
+    mysql_secure_installation --set-root-pass ${mysql_root_password} &>>$LOGFILE
     VALIDATE $? "MySQL Root password is setup"
 else
     echo -e "MySQL root password is already setup... $Y SKIPPING $N"
