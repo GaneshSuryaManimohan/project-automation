@@ -37,4 +37,3 @@ VALIDATE $? "Starting mysqld service"
 
 mysql_secure_installation --set-root-pass ExpenseApp@1
 VALIDATE $? "Setting up root password"
-
