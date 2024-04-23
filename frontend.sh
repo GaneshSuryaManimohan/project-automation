@@ -19,7 +19,7 @@ VALIDATE(){
     fi
 }
 
-if [ $USERID -ne 0]
+if [ $USERID -ne 0 ]
 then
     echo "Please switch to root user to run this script"
     exit 1
