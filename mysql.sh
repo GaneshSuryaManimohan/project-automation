@@ -8,16 +8,16 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
-echo "Please enter the root password: "
+echo "Please enter the root password for DB: "
 read -s mysql_root_password
 
 VALIDATE(){
     if [ $1 -ne 0 ]
     then
-        echo -e "Installation of $2.... $R FAILURE $N"
+        echo -e "$2.... $R FAILURE $N"
         exit 1 #manual exit in case of error
     else
-        echo -e "Installation of $2....$G SUCCESS $N"
+        echo -e "$2....$G SUCCESS $N"
     fi
 }
 
@@ -30,7 +30,7 @@ else
 fi
 
 dnf install mysql-server -y &>>$LOGFILE
-VALIDATE $? "MySQL Server"
+VALIDATE $? "MySQL Server Installation"
 
 systemctl enable mysqld &>>$LOGFILE
 VALIDATE $? "Enabling mysqld service"
